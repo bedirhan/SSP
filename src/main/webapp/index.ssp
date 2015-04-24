@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<% import org.owasp.encoder._ %>
+<% escapeMarkup = false %>
+<html>
+    <head>
+        <%
+            var vector1 = request.getParameter("vector1");
+            vector1 = Encode.forHtml(vector1);
+            var vector2 = request.getParameter("vector2");
+            vector2 = Encode.forHtmlAttribute(vector2);
+            var vector3 = request.getParameter("vector3");
+            vector3 = Encode.forJavaScript(vector3);
+            var vector4 = request.getParameter("vector4");
+            vector4 = Encode.forCssString(vector4);
+            var vector5 = request.getParameter("vector5");
+            vector5 = Encode.forUriComponent(vector5);
+        %>
+        <title>FilterXSS</title>
+        <style>
+            span#myspan4{
+                background-color: ${vector1};
+            }
+        </style>  
+    </head>
+    <body style="font-family: Trebuchet MS; padding: 0px 40px;">        
+        <div style="position:absolute; right:45px; top: 10px; font-size: 90%; color:Gray; text-align:right">
+            <a href="http://www.guvenlikod.com"  target="_blank">GüvenliKod</a>
+            <br/>
+            guvenlikod{at}gmail.com
+        </div>
+
+        <center>
+            <h2>
+                <a href="index.ssp">Home FilterXSS</a>
+            </h2>
+            <hr/>
+        </center>
+
+        <form action="index.ssp" method="GET">
+            <center>
+                <input type="submit" value="Send Attack Vector" style="border:1px solid black;height:30px"/>
+            </center>
+
+            <h3>1. Vector I (HTML)</h3>  
+            Try out:  <input type="text" size="100" name="vector1" value="${vector1}"/>
+            <div>
+                ${vector1}
+            </div>
+
+            <h3>2. Vector II (HTML Attribute)</h3>
+            Try out:  <input type="text" size="100" name="vector2" value="${vector2}"/>
+            <div>
+                <span style='${vector2}'>Stylish span</span>
+            </div>
+
+            <h3>3. Vector III  (JS)</h3> 
+            Try out:  <input type="text" size="100" name="vector3" value="${vector3}"/>
+            <div>
+                <span id="myspan"></span>
+                <script>
+                    var value = '${vector3}';
+                    var myspan = document.getElementById("myspan");
+                    myspan.innerHTML = escape(value); // a little prevention
+                </script>                        
+            </div>
+
+            <h3>4. Vector IV (CSS)</h3> 
+            Try out:  <input type="text" size="100" name="vector4" value="${vector4}"/>
+            <div>
+                <span id="myspan4">This is dynamic backgrounded span</span>
+            </div>
+
+            <h3>5. Vector V (URL)</h3> 
+            Try out:  <input type="text" size="100" name="vector5" value="${vector5}"/>
+            <div>
+                <a href="${vector5}">click here</a>                    
+            </div> 
+        </form>    
+    
+    </body>
+</html>
