@@ -5,15 +5,15 @@
     <head>
         <%
             var vector1 = request.getParameter("vector1");
-            vector1 = Encode.forHtml(vector1);
+            //vector1 = Encode.forHtml(vector1);
             var vector2 = request.getParameter("vector2");
-            vector2 = Encode.forHtmlAttribute(vector2);
+            //vector2 = Encode.forHtmlAttribute(vector2);
             var vector3 = request.getParameter("vector3");
-            vector3 = Encode.forJavaScript(vector3);
+            //vector3 = Encode.forJavaScript(vector3);
             var vector4 = request.getParameter("vector4");
-            vector4 = Encode.forCssString(vector4);
+            //vector4 = Encode.forCssString(vector4);
             var vector5 = request.getParameter("vector5");
-            vector5 = Encode.forUriComponent(vector5);
+            //vector5 = Encode.forUriComponent(vector5);
         %>
         <title>FilterXSS</title>
         <style>
